@@ -40,7 +40,13 @@ public class UserController {
 
     }
 
+    //update UserById
+    @PutMapping("/updateUserById/{userId}")
+    public ResponseEntity<ResponseMessage<UserResponse>> updateUserById(@PathVariable Long userId,
+                                                                        @RequestBody @Valid UserRequest userRequest){
+        return ResponseEntity.ok(userService.updateUserById(userId,userRequest));
 
+    }
 
 
 }

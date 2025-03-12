@@ -48,7 +48,7 @@ public class UserService {
 
     public ResponseMessage<UserResponse> getUserById(Long userId) {
         //validate if user exist in DB
-        User user=methodHelper.isUserExist(userId);
+        User user = methodHelper.isUserExist(userId);
         return ResponseMessage.<UserResponse>builder()
                 .messages(SuccessMessages.USER_FOUND)
                 .returnBody(userMapper.mapUserToUserResponse(user))
@@ -62,5 +62,25 @@ public class UserService {
         methodHelper.isUserExist(userId);
         userRepository.deleteById(userId);
         return SuccessMessages.USER_DELETE;
+    }
+
+    public ResponseMessage<UserResponse> updateUserById(Long userId, UserRequest userRequest) {
+        //validate if user exist in DB
+        User userFromDB = methodHelper.isUserExist(userId);
+        //build in users can not be updated
+        methodHelper.checkBuildIn(userFromDB);
+        //validate unique properties senıcoksevıyom kralcım
+        uniquePropertyValidator.checkUniqueProperty(userFromDB, userRequest);
+        //mapping
+        User userToSave = userMapper.mapUserRequestToUser(userRequest, userFromDB.getUserRole().getRoleName());
+        userToSave.setId(userId);
+        User savedUser = userRepository.save(userToSave);
+        return ResponseMessage.<UserResponse>builder()
+                .messages(SuccessMessages.USER_UPDATE)
+                .httpStatus(HttpStatus.OK)
+                .returnBody(userMapper.mapUserToUserResponse(savedUser))
+                .build();
+
+
     }
 }
