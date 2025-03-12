@@ -14,6 +14,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>school-management-backend-b326</name>
   <description>school-management-backend-b326</description>
+
+  <properties>
+    <org.mapstruct.version>1.6.3</org.mapstruct.version>
+    <postgres.version>42.6.0</postgres.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -69,7 +75,22 @@
 <!--      <artifactId>springdoc-openapi-ui</artifactId>-->
 <!--      <version>1.6.9</version>-->
 <!--    </dependency>-->
-    
+
+    <!-- MapStruct Dependency ****************-->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${org.mapstruct.version}</version>
+    </dependency>
+    <!-- According to MapStruct documentation:
+    Thanks to this dependency, we will not have to configure Annotation Processor settings in IntelliJ -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>${org.mapstruct.version}</version>
+      <optional>true</optional>
+    </dependency>
+
   </dependencies>
 
   <build>
