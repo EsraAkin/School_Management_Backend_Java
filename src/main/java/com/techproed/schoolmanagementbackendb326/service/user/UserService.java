@@ -56,4 +56,11 @@ public class UserService {
                 .build();
 
     }
+
+    public String deleteUserById(Long userId) {
+        //validate if user exist in DB
+        methodHelper.isUserExist(userId);
+        userRepository.deleteById(userId);
+        return SuccessMessages.USER_DELETE;
+    }
 }
