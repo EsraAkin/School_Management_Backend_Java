@@ -6,6 +6,7 @@ import com.techproed.schoolmanagementbackendb326.payload.response.user.UserRespo
 import com.techproed.schoolmanagementbackendb326.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ public class UserController {
     private final UserService userService;
 
     //save user
+    @PreAuthorize("hasAnyAuthority('Admin')")
     @PostMapping("/save/{userRole}")
     public ResponseEntity<ResponseMessage<UserResponse>> saveUser(@RequestBody
                                                                   @Valid UserRequest userRequest,
